@@ -1,0 +1,20 @@
+@import 'base';
+@import 'vendor/normalize';
+
+.ui.container {
+  text-align: center;
+  margint-top: 3em;
+}
+
+.ui.container h1:first-child {
+  font-size: 3em;
+}
+
+.title {
+  vertical-align: middle;
+}
+
+.stockNotFound, .stockCrawling {
+  color: #cecece;
+  margin-top: 50px;
+}
