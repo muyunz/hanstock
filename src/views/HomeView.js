@@ -6,6 +6,8 @@ import StockSearch from '../components/StockSearch';
 import StockNotFound from '../components/StockNotFound';
 import StockCrawling from '../components/StockCrawling';
 import Table from '../components/Table';
+import Chart from '../components/Chart';
+
 import { fetchStock } from '../actions';
 
 const mapStateToProps = (state) => ({
@@ -57,20 +59,51 @@ export class HomeView extends React.Component {
 
     let datas = this.props.stock.stockData.datas;
 
-    const rows = datas.map(function(row) {
+    const rows = datas.map(function(data) {
       return tableHead.map(function(head) {
-        return row[head.field];
+        return data[head.field];
       })
     })
 
     let StockInfo;
+    let StockChart;
+
+    // 建立圖表資訊
+    const closeLine = {
+      labels: datas.map(function(data){
+        return data['date'];
+      }),
+      datasets: [
+          {
+              label: "收盤價",
+              fillColor: "rgba(220,220,220,0.2)",
+              strokeColor: "rgba(220,220,220,1)",
+              pointColor: "rgba(220,220,220,1)",
+              pointStrokeColor: "#fff",
+              pointHighlightFill: "#fff",
+              pointHighlightStroke: "rgba(220,220,220,1)",
+              data: datas.map(function(data){
+                return data['close'];
+              })
+          }
+      ]
+    }
 
     if(this.props.stock.isFetching) {
+
       StockInfo = <StockCrawling />
+      StockChart = null;
+
     } else if (rows.length != 0 && !this.props.stock.isFetching) {
+
       StockInfo = <Table cols={cols} rows={rows} />;
+      StockChart = <Chart lines={[closeLine]}/>
+
     } else {
+
       StockInfo = <StockNotFound />
+      StockChart = null;
+
     }
 
     return (
@@ -92,6 +125,12 @@ export class HomeView extends React.Component {
           <div className="row">
             <div className="ten wide column centered">
               {StockInfo}
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="ten wide column centered">
+              {StockChart}
             </div>
           </div>
 

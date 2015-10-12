@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-fetch';
 import CSV from 'comma-separated-values';
 
-const API_ROOT = 'http://cors-anywhere.herokuapp.com/www.twse.com.tw/ch/trading/exchange/STOCK_DAY/STOCK_DAY_print.php?genpage=genpage/';
+const API_ROOT = 'http://crossorigin.me/http://www.twse.com.tw/ch/trading/exchange/STOCK_DAY/STOCK_DAY_print.php?genpage=genpage/';
 const FIELDS = ['date', 'trading_volume', 'turnover', 'open', 'high', 'low', 'close', 'price_limit', 'transaction_number']
 
 export const STOCK_REQUEST = 'STOCK_REQUEST';
@@ -40,7 +40,6 @@ export function fetchStock(stockNo) {
   return dispatch => {
 
     var api_url = API_ROOT + `Report201510/201510_F3_1_8_${stockNo}.php&type=csv`;
-    console.log(api_url)
     dispatch(getStockRequest(api_url));
     return fetch(api_url)
       .then(response => response.text())
