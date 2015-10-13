@@ -56,7 +56,7 @@ export default class Root extends React.Component {
     let debugTools = null;
 
     if (__DEBUG__) {
-      debugTools = this.renderDevTools();
+      // debugTools = this.renderDevTools();
     }
 
     return (
