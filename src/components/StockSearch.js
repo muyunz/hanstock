@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 
 export default class StockSearch extends Component {
 
+  static propTypes = {
+    onChange : React.PropTypes.func.isRequired,
+  }
+
   render() {
     const { onChange } = this.props;
     return (

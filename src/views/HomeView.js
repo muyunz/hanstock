@@ -7,7 +7,6 @@ import StockNotFound from '../components/StockNotFound';
 import StockCrawling from '../components/StockCrawling';
 import Table from '../components/Table';
 import Chart from '../components/Chart';
-
 import { fetchStock } from '../actions';
 
 const mapStateToProps = (state) => ({
@@ -27,11 +26,9 @@ const tableHead = [
 ];
 
 export class HomeView extends React.Component {
-
   static propTypes = {
     dispatch : React.PropTypes.func,
-    stockNo : React.PropTypes.number,
-    stockData : React.PropTypes.object,
+    stock : React.PropTypes.object,
   }
 
   constructor () {
@@ -44,8 +41,9 @@ export class HomeView extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.stockNo !== this.props.stockNo) {
-      const { dispatch, stockNo } = nextProps;
+    const { dispatch, stockNo } = nextProps;
+
+    if (nextProps.stockNo !== stockNo) {
       dispatch(fetchStock(10));
     }
   }
@@ -55,55 +53,47 @@ export class HomeView extends React.Component {
   }
 
   render () {
-    const cols = tableHead.map( head => head.name);
+    const cols = tableHead.map(head => head.name);
 
-    let datas = this.props.stock.stockData.datas;
+    const datas = this.props.stock.stockData.datas;
 
     const rows = datas.map(function(data) {
       return tableHead.map(function(head) {
         return data[head.field];
-      })
-    })
+      });
+    });
 
-    let StockInfo;
-    let StockChart;
+    let StockInfo = null;
+    let StockChart = null;
 
     // 建立圖表資訊
     const closeLine = {
-      labels: datas.map(function(data){
-        return data['date'];
+      labels: datas.map(function(data) {
+        return data.date;
       }),
       datasets: [
-          {
-              label: "收盤價",
-              fillColor: "rgba(220,220,220,0.2)",
-              strokeColor: "rgba(220,220,220,1)",
-              pointColor: "rgba(220,220,220,1)",
-              pointStrokeColor: "#fff",
-              pointHighlightFill: "#fff",
-              pointHighlightStroke: "rgba(220,220,220,1)",
-              data: datas.map(function(data){
-                return data['close'];
-              })
-          }
+        {
+          label: '收盤價',
+          fillColor: 'rgba(220,220,220,0.2)',
+          strokeColor: 'rgba(220,220,220,1)',
+          pointColor: 'rgba(220,220,220,1)',
+          pointStrokeColor: '#fff',
+          pointHighlightFill: '#fff',
+          pointHighlightStroke: 'rgba(220,220,220,1)',
+          data: datas.map(function(data) {
+            return data.close;
+          })
+        }
       ]
-    }
+    };
 
-    if(this.props.stock.isFetching) {
-
-      StockInfo = <StockCrawling />
-      StockChart = null;
-
-    } else if (rows.length != 0 && !this.props.stock.isFetching) {
-
+    if (this.props.stock.isFetching) {
+      StockInfo = <StockCrawling />;
+    } else if (rows.length !== 0 && !this.props.stock.isFetching) {
       StockInfo = <Table cols={cols} rows={rows} />;
-      StockChart = <Chart lines={[closeLine]}/>
-
+      StockChart = <Chart lines={[closeLine]}/>;
     } else {
-
-      StockInfo = <StockNotFound />
-      StockChart = null;
-
+      StockInfo = <StockNotFound />;
     }
 
     return (

@@ -8,7 +8,6 @@ export default class Table extends Component {
   }
 
   render() {
-
     const cols = this.props.cols;
     const rows = this.props.rows;
 
@@ -25,8 +24,8 @@ export default class Table extends Component {
           {rows.map(function(row, i) {
             return (
               <tr key={i}>
-                {row.map(function(row, j) {
-                  return <td key={j}>{row}</td>;
+                {row.map(function(_row, j) {
+                  return <td key={j}>{_row}</td>;
                 })}
               </tr>
             );
