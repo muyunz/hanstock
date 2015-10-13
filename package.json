@@ -1,7 +1,7 @@
 {
   "name": "hanstock",
   "version": "0.0.1",
-  "description": "芷涵用股票爬蟲",
+  "description": "股票爬蟲",
   "main": "index.js",
   "scripts": {
     "clean": "rm -rf dist",
