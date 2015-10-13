@@ -23,7 +23,7 @@ export default createReducer(initialState, {
       isFetching: false,
     });
   },
-  [STOCK_FAILURE] : (state) => {
+  [STOCK_FAILURE] : (state, action) => {
     return Object.assign({}, state, {
       stockNo: action.stockNo,
       isFetching: false,
