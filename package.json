@@ -21,9 +21,11 @@
   "author": "Tomoe",
   "license": "MIT",
   "dependencies": {
+    "async": "^1.4.2",
     "babel": "^5.8.23",
     "chart.js": "^1.0.2",
     "comma-separated-values": "^3.6.3",
+    "cors": "^2.7.1",
     "d3": "^3.5.6",
     "history": "^1.9.0",
     "immutable": "^3.7.4",

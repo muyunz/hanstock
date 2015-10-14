@@ -5,6 +5,7 @@ const initialState = {
   stockNo: 0,
   isFetching: false,
   stockData: {
+    name: '',
     datas: [],
   }
 };

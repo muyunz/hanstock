@@ -114,6 +114,7 @@ export class HomeView extends React.Component {
 
           <div className="row">
             <div className="ten wide column centered">
+                <h5></h5>
               {StockInfo}
             </div>
           </div>
